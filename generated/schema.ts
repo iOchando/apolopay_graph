@@ -11,7 +11,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class BlockEvent extends Entity {
+export class Transfer extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,22 +19,22 @@ export class BlockEvent extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save BlockEvent entity without an ID");
+    assert(id != null, "Cannot save Transfer entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type BlockEvent must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Transfer must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("BlockEvent", id.toString(), this);
+      store.set("Transfer", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): BlockEvent | null {
-    return changetype<BlockEvent | null>(store.get_in_block("BlockEvent", id));
+  static loadInBlock(id: string): Transfer | null {
+    return changetype<Transfer | null>(store.get_in_block("Transfer", id));
   }
 
-  static load(id: string): BlockEvent | null {
-    return changetype<BlockEvent | null>(store.get("BlockEvent", id));
+  static load(id: string): Transfer | null {
+    return changetype<Transfer | null>(store.get("Transfer", id));
   }
 
   get id(): string {
@@ -50,71 +50,42 @@ export class BlockEvent extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get number(): BigInt | null {
-    let value = this.get("number");
+  get from(): string {
+    let value = this.get("from");
     if (!value || value.kind == ValueKind.NULL) {
-      return null;
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set from(value: string) {
+    this.set("from", Value.fromString(value));
+  }
+
+  get to(): string {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set to(value: string) {
+    this.set("to", Value.fromString(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
     } else {
       return value.toBigInt();
     }
   }
 
-  set number(value: BigInt | null) {
-    if (!value) {
-      this.unset("number");
-    } else {
-      this.set("number", Value.fromBigInt(<BigInt>value));
-    }
-  }
-
-  get hash(): Bytes | null {
-    let value = this.get("hash");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set hash(value: Bytes | null) {
-    if (!value) {
-      this.unset("hash");
-    } else {
-      this.set("hash", Value.fromBytes(<Bytes>value));
-    }
-  }
-
-  get timestampNanosec(): BigInt | null {
-    let value = this.get("timestampNanosec");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set timestampNanosec(value: BigInt | null) {
-    if (!value) {
-      this.unset("timestampNanosec");
-    } else {
-      this.set("timestampNanosec", Value.fromBigInt(<BigInt>value));
-    }
-  }
-
-  get gasPrice(): BigInt | null {
-    let value = this.get("gasPrice");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set gasPrice(value: BigInt | null) {
-    if (!value) {
-      this.unset("gasPrice");
-    } else {
-      this.set("gasPrice", Value.fromBigInt(<BigInt>value));
-    }
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 }

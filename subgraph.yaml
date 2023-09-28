@@ -7,14 +7,12 @@ dataSources:
     network: near-mainnet
     source:
       account: "usdt.tether-token.near"
-      startBlock: 102153330
+      startBlock: 102169603
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - BlockEvent
-      # receiptHandlers:
-      #   - handler: handleReceipt
-      blockHandlers:
-        - handler: handleBlock
+        - Transfer
+      receiptHandlers:
+        - handler: handleReceipt
       file: ./src/mapping.ts

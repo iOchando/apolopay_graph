@@ -1,7 +1,6 @@
-type BlockEvent @entity {
+type Transfer @entity {
   id: ID!
-  number: BigInt
-  hash: Bytes
-  timestampNanosec: BigInt
-  gasPrice: BigInt
+  from: String!
+  to: String!
+  timestamp: BigInt!
 }
