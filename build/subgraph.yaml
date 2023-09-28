@@ -1,20 +1,18 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: near
     name: USDT
     network: near-mainnet
     source:
-      account: "usdt.tether-token.near"
+      account: usdt.tether-token.near
       startBlock: 102153330
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - BlockEvent
-      # receiptHandlers:
-      #   - handler: handleReceipt
       blockHandlers:
         - handler: handleBlock
-      file: ./src/mapping.ts
+      file: USDT/USDT.wasm
