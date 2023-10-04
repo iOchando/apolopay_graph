@@ -102,3 +102,56 @@ export class Transfer extends Entity {
     this.set("timestamp", Value.fromBigInt(value));
   }
 }
+
+export class Wallet extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Wallet entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Wallet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Wallet", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): Wallet | null {
+    return changetype<Wallet | null>(store.get_in_block("Wallet", id));
+  }
+
+  static load(id: string): Wallet | null {
+    return changetype<Wallet | null>(store.get("Wallet", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get wallet(): string {
+    let value = this.get("wallet");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set wallet(value: string) {
+    this.set("wallet", Value.fromString(value));
+  }
+}

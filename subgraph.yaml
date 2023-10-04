@@ -7,12 +7,27 @@ dataSources:
     network: near-mainnet
     source:
       account: "usdt.tether-token.near"
-      startBlock: 102197124
+      startBlock: 102615886
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Transfer
+        - Wallet
       receiptHandlers:
         - handler: handleReceipt
-      file: ./src/mapping.ts
+      file: ./src/mapping_transfer.ts
+  - kind: near
+    name: ApoloPayWallet
+    network: near-mainnet
+    source:
+      account: "v1.apolopay.near"
+      startBlock: 102615886
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      receiptHandlers:
+        - handler: handleReceipt
+      file: ./src/mapping_wallet.ts

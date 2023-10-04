@@ -1,5 +1,5 @@
 import { near, BigInt, log, json } from "@graphprotocol/graph-ts";
-import { Transfer } from "../generated/schema";
+import { Transfer, Wallet } from "../generated/schema";
 
 export function handleReceipt(receipt: near.ReceiptWithOutcome): void {
   const actions = receipt.receipt.actions;
@@ -38,6 +38,10 @@ function handleAction(action: near.ActionValue, receipt: near.ActionReceipt, blo
     const amount = dataArray.get("amount");
 
     if (!from || !to || !amount) return;
+
+    const walletLoad = Wallet.load(to.toString());
+
+    if (!walletLoad) return;
 
     let transfer = new Transfer(receipt.id.toBase58());
     transfer.from = from.toString();

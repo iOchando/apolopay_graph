@@ -5,3 +5,8 @@ type Transfer @entity {
   amount: String!
   timestamp: BigInt!
 }
+
+type Wallet @entity {
+  id: ID!
+  wallet: String!
+}
