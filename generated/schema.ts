@@ -76,6 +76,19 @@ export class Transfer extends Entity {
     this.set("to", Value.fromString(value));
   }
 
+  get amount(): string {
+    let value = this.get("amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set amount(value: string) {
+    this.set("amount", Value.fromString(value));
+  }
+
   get timestamp(): BigInt {
     let value = this.get("timestamp");
     if (!value || value.kind == ValueKind.NULL) {

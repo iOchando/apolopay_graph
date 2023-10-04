@@ -3,11 +3,11 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: near
-    name: USDT
+    name: ApoloPay
     network: near-mainnet
     source:
       account: usdt.tether-token.near
-      startBlock: 102169603
+      startBlock: 102197124
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
@@ -15,4 +15,4 @@ dataSources:
         - Transfer
       receiptHandlers:
         - handler: handleReceipt
-      file: USDT/USDT.wasm
+      file: ApoloPay/ApoloPay.wasm
