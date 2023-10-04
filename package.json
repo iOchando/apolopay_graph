@@ -11,7 +11,10 @@
     "test": "graph test"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.4",
     "@graphprotocol/graph-cli": "0.58.0",
-    "@graphprotocol/graph-ts": "0.30.0"
+    "@graphprotocol/graph-ts": "0.30.0",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6"
   }
 }
